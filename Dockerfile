@@ -1,26 +1,17 @@
 # Eliran Turgeman
-
-# FROM python:3.6 as builder
-# PYTHONUNBUFFERED Force logging to stdout / stderr not to be buffered into ram  
-# ENV PYTHONUNBUFFERED=1 
-# WORKDIR /usr/src/app
-# COPY flask-api/ ./
-# WORKDIR /wheels
-# COPY flask-api/requirements.txt ./requirements.txt
-# PIP Will create an archive of our libraries so we don't need to download them again
-# argument - wheel
-# RUN pip wheel -r ./requirements.txt 
-
 # Build (Stage1)
-FROM python:3.11.2-slim-buster as builder
+FROM python:3.6 as builder
+# PYTHONUNBUFFERED Force logging to stdout / stderr not to be buffered into ram  
+ENV PYTHONUNBUFFERED=1 
 # set the working directory
 WORKDIR  /boto
 # copy the folder wheres the dockerfile
 COPY ./main.py .
+WORKDIR /wheels
 COPY requirements.txt .
-# install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
+# PIP Will create an archive of our libraries so we don't need to download them again
+# argument - wheel
+RUN pip wheel -r ./requirements.txt 
 
 # Unit Tests (stage-2)
 #FROM python:3.6 as unit-tests
