@@ -26,12 +26,12 @@ RUN pip wheel -r ./requirements.txt
 #COPY --from=builder /usr/src/app/ ./
 #RUN ["make", "test"]
 
-# # lint (stage-2)
-# FROM eeacms/pylint:latest as linting
-# WORKDIR /code
+# lint (stage-2)
+FROM eeacms/pylint:latest as linting
+WORKDIR /code
 # COPY --from=builder /boto/pylint.cfg /etc/pylint.cfg
-# COPY --from=builder /boto/*.py ./
-# RUN ["/docker-entrypoint.sh", "pylint"]
+COPY --from=builder /boto/*.py ./
+RUN ["/docker-entrypoint.sh", "pylint"]
 
 
 # RUN (Stage 3) Starts the python app
