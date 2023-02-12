@@ -1,6 +1,6 @@
 # Eliran Turgeman
 # Build (Stage1)
-FROM python:3.6 as builder
+FROM python:3.11.2 as builder
 # PYTHONUNBUFFERED Force logging to stdout / stderr not to be buffered into ram  
 ENV PYTHONUNBUFFERED=1 
 # set the working directory
@@ -35,7 +35,7 @@ RUN pip wheel -r ./requirements.txt
 
 
 # RUN (Stage 3) Starts the python app
-FROM python:3.11.2-slim-buster as run
+FROM python:3.11.2-slim as run
 WORKDIR /boto
 # Copy all packages instead of rerunning pip install
 COPY --from=builder /wheels /wheels
