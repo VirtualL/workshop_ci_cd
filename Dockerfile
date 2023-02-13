@@ -21,7 +21,7 @@ COPY --from=builder /boto/*.py ./
 RUN ["/docker-entrypoint.sh", "pylint"]
 
 # RUN (Stage 3) Starts the python app
-FROM python:3.11.2-slim as run
+FROM python:3.11.2-alpine as run
 WORKDIR /boto
 # Copy all packages instead of rerunning pip install
 COPY --from=builder /wheels /wheels
