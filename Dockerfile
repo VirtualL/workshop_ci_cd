@@ -26,7 +26,7 @@ WORKDIR /boto
 # Copy all packages instead of rerunning pip install
 COPY --from=builder /wheels /wheels
 RUN     pip install -r /wheels/requirements.txt \
-                    -f /wheels \
+                -f /wheels \
         && rm -rf /wheels \
         && rm -rf /root/.cache/pip/* 
 COPY --from=builder /boto/*.py ./
