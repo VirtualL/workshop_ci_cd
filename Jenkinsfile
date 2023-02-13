@@ -37,6 +37,9 @@ pipeline {
                 docker login -u ${DOCKER_USR} -p ${DOCKER_PSW}
                 docker image tag boto3_ip_finder virtuall4u/workshop_ci_cd:${env.BUILD_ID}
                 docker push virtuall4u/workshop_ci_cd:${env.BUILD_ID}
+
+                docker image tag boto3_ip_finder virtuall4u/workshop_ci_cd:latest
+                docker push virtuall4u/workshop_ci_cd:latest
                 """
             }
         }
