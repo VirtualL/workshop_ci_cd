@@ -8,6 +8,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+        DOCKER = credentials('jenkins-dockerhub')
     }
     stages {
         stage('Init') {
@@ -25,16 +26,21 @@ pipeline {
         }      
         stage('Build') {
             steps {
+                sh "docker rm -f boto3_ip_finder"                
                 sh "docker build -t boto3_ip_finder ."
+                sh"""
+                docker -u ${DOCKER_USR} -p ${DOCKER_PSW}
+                docker image tag boto3_ip_finder virtuall4u/workshop_ci_cd:${env.BUILD_ID}
+                docker push virtuall4u/workshop_ci_cd:${env.BUILD_ID}
+                """
             }
         }
+
         stage('Deploy') {
             steps {
-                sh "docker rm -f boto3_ip_finder"
                 sh "docker run -itd --name boto3_ip_finder --env INTERVAL=${params.INTERVAL}  --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}  --env AWS_DEFAULT_REGION=eu-west-1 boto3_ip_finder"
-                sleep 15
-                sh "docker logs boto3_ip_finder"
-                
+                sleep 10
+                sh "docker logs boto3_ip_finder"                
             }
         }      
     }
