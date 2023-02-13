@@ -5,7 +5,8 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
-        DOCKER = credentials('jenkins-dockerhub')
+        DOCKER                = credentials('jenkins-dockerhub')
+        GITHUB                = credentials('myGitHubToken')
     }
     stages {
         stage('Init') {
@@ -37,42 +38,26 @@ pipeline {
             }
         }
 
-        // stage('Deploy') {
-        //     steps {
-        //         sh "docker run -itd --name boto3_ip_finder --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}  --env AWS_DEFAULT_REGION=eu-west-1 boto3_ip_finder"
-        //         sleep 10
-        //         sh "docker logs boto3_ip_finder"                
-        //     }
-        // }      
+        stage('Test') {
+            steps {
+                sh "docker run -itd --name boto3_ip_finder --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}  --env AWS_DEFAULT_REGION=eu-west-1 boto3_ip_finder"
+                sleep 5
+                sh "docker logs boto3_ip_finder"                
+            }
+        }      
     }
     post {
         success {
             echo "This pipeline BUILD_ID: ${env.BUILD_ID} on ${env.JENKINS_URL} finshed successfully"
-            sh "git push origin development:master"
-            // withCredentials([sshUserPrivateKey(credentialsId: 'Github_VirtualL_RW', keyFileVariable: 'SSH_KEY')]) {
-            // sh """git push origin development:master
-
-            // """
-            // 
-            // }    
-
-            // withCredentials([usernamePassword(credentialsId: 'myGitHubToken',
-            //                 usernameVariable: 'username',
-            //                 passwordVariable: 'password')]){
-                // git@github.com:VirtualL/workshop_ci_cd.git                       
+            sh "git push https://${GITHUB_USR}:${GITHUB_PSW}@github.com/VirtualL/workshop_ci_cd.git development:master"              
                 sh """
                 docker login -u ${DOCKER_USR} -p ${DOCKER_PSW}
                 docker image tag boto3_ip_finder virtuall4u/workshop_ci_cd:latest
                 docker push virtuall4u/workshop_ci_cd:latest
                 """          
-
         }
         failure {
             echo "This pipeline BUILD_ID: ${env.BUILD_ID} on ${env.JENKINS_URL} failed!"
         }
     }
 }
-
-    // git url: "ssh://jenkins@your-git-repo:12345/your-git-project.git",
-    // credentialsId: 'jenkins_ssh_key',
-    // branch: develop
