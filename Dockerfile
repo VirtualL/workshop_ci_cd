@@ -1,4 +1,5 @@
 # Eliran Turgeman
+
 # Build (Stage1)
 FROM python:3.11.2 as builder
 # PYTHONUNBUFFERED Force logging to stdout / stderr not to be buffered into ram  
@@ -14,8 +15,8 @@ COPY requirements.txt .
 RUN pip wheel -r ./requirements.txt 
 
 # lint (stage-2)
-FROM cytopia/pylint:latest as linting
-WORKDIR /data
+FROM eeacms/pylint:latest as linting 
+WORKDIR /code
 COPY --from=builder /boto/*.py ./
 RUN ["/docker-entrypoint.sh", "pylint"]
 

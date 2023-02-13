@@ -31,7 +31,7 @@ def main():
             ip_addresses.append(instance['PublicIpAddress'])
 
     if len(ip_addresses) > 0:
-        print('This filters: {} found on those IPs:{}', filters, ip_addresses)
+        print('This filters:', filters, 'found on those IPs:', ip_addresses)
     else:
         print('No IPs was found with this filters: {}:', filters)
 
