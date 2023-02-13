@@ -31,7 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh "docker rm -f boto3_ip_finder"
-                sh "docker run -itd --name boto3_ip_finder --env INTERVAL=${params.INTERVAL}  --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}  --env AWS_DEFAULT_REGION=eu-west-1 boto3_ip_finder"
+                sh "docker run -it --name boto3_ip_finder --env INTERVAL=${params.INTERVAL}  --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}  --env AWS_DEFAULT_REGION=eu-west-1 boto3_ip_finder"
                 sleep 15
                 sh "docker logs boto3_ip_finder"
                 
