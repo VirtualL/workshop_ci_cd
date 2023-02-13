@@ -38,6 +38,13 @@ pipeline {
             }
         }      
     }
+    post {
+        success {
+            echo "This pipeline BUILD_ID: ${env.BUILD_ID} on ${env.JENKINS_URL} finshed successfully"
+        }
+        failure {
+            echo "This pipeline BUILD_ID: ${env.BUILD_ID} on ${env.JENKINS_URL} failed!"
+        }          
 
 
 }
