@@ -30,5 +30,4 @@ RUN     pip install -r /wheels/requirements.txt \
         && rm -rf /wheels \
         && rm -rf /root/.cache/pip/* 
 COPY --from=builder /boto/*.py ./
-# run the command to start the app
 CMD ["python3", "main.py"]
