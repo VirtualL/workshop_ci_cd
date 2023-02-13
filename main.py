@@ -1,6 +1,7 @@
 # Eliran Turgeman
-import boto3
 import logging
+#Module boto3 in use to create, configure, and manage AWS services via python
+import boto3
 from pythonjsonlogger import jsonlogger
 
 logger = logging.getLogger()
@@ -10,9 +11,10 @@ formatter = jsonlogger.JsonFormatter()
 logHandler.setFormatter(formatter)
 logger.addHandler(logHandler)
 
-
+"""this function will find running instances
+with the tags in the filter section."""
 def main():
-    print('start')
+    print('Start')
     # Initialize the boto3 EC2 client
     ec2 = boto3.client('ec2')
     # Define the filters to search for instances
@@ -29,11 +31,11 @@ def main():
             ip_addresses.append(instance['PublicIpAddress'])
 
     if len(ip_addresses) > 0:
-        print("This filters: {} found on those IPs:".format(filters))
-        print(ip_addresses)
+        print('This filters: {} found on those IPs:{}', filters, ip_addresses)
     else:
-        print("No IPs was found with this filters: {}:".format(filters))
-    print('end')
+        print('No IPs was found with this filters: {}:', filters)
+
+    print('End')
 
 
 if __name__ == "__main__":
