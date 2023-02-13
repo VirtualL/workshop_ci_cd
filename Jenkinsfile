@@ -23,12 +23,16 @@ pipeline {
             steps {
                 git branch: 'development', url: 'https://github.com/VirtualL/workshop_ci_cd.git'
             }
-        }      
+        }
+        
         stage('Build') {
             steps {
-                sh "cd application"
-                sh "docker rm -f boto3_ip_finder"                
-                sh "docker build -t boto3_ip_finder ."
+                dir('application') {
+                    sh "pwd"
+                    sh "ls"
+                    sh "docker rm -f boto3_ip_finder"                
+                    sh "docker build -t boto3_ip_finder ."                    
+                }
                 sh"""
                 docker login -u ${DOCKER_USR} -p ${DOCKER_PSW}
                 docker image tag boto3_ip_finder virtuall4u/workshop_ci_cd:${env.BUILD_ID}
