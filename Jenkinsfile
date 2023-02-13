@@ -26,6 +26,7 @@ pipeline {
         }      
         stage('Build') {
             steps {
+                sh "cd application"
                 sh "docker rm -f boto3_ip_finder"                
                 sh "docker build -t boto3_ip_finder ."
                 sh"""
