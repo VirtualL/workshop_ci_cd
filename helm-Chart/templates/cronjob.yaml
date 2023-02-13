@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: boto3-cronjob
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: boto3-cronjob
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+            imagePullPolicy: IfNotPresent
+            envFrom:
+            - secretRef:
+                name: boto3-auth-secret
+            - configMapRef:
+                name: boto3-configmap          
+                optional: true      
+
+          restartPolicy: OnFailure
