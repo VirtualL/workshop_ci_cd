@@ -29,18 +29,13 @@ pipeline {
                     sh "docker rm -f boto3_ip_finder"                
                     sh "docker build -t boto3_ip_finder ."
                 }
-                sh """
-                docker login -u ${DOCKER_USR} -p ${DOCKER_PSW}
-                docker image tag boto3_ip_finder virtuall4u/workshop_ci_cd:${env.BUILD_ID}
-                docker push virtuall4u/workshop_ci_cd:${env.BUILD_ID}
-                """
             }
         }
 
         stage('Test') {
             steps {
                 sh "docker run -itd --name boto3_ip_finder --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}  --env AWS_DEFAULT_REGION=eu-west-1 boto3_ip_finder"
-                sleep 5
+                sleep 3
                 sh "docker logs boto3_ip_finder"                
             }
         }      
@@ -50,11 +45,23 @@ pipeline {
             echo "This pipeline BUILD_ID: ${env.BUILD_ID} on ${env.JENKINS_URL} finshed successfully!"
             
             sh """
-            echo "Uploading new docker image:" 
+            echo "Pusing image to DockerHub:"
             docker login -u ${DOCKER_USR} -p ${DOCKER_PSW}
+            docker image tag boto3_ip_finder virtuall4u/workshop_ci_cd:${env.BUILD_ID}
+            docker push virtuall4u/workshop_ci_cd:${env.BUILD_ID}
+            # setting the new docker image as latest tag also  
             docker image tag boto3_ip_finder virtuall4u/workshop_ci_cd:latest
-            docker push virtuall4u/workshop_ci_cd:latest
+            docker push virtuall4u/workshop_ci_cd:latest                       
             """
+
+            echo "Merging 'development' branch into 'master'"  
+            sh "git checkout master"
+            sh "git merge development"           
+            sh "git push https://${GITHUB_USR}:${GITHUB_PSW}@github.com/VirtualL/workshop_ci_cd.git development:master"     
+
+            //updating helm value file in master
+            sh "git checkout master"
+            sh "git pull origin master"            
             dir('helm-Chart') {
                 sh "pwd && ls -la"                  
                 sh """#!/bin/bash
@@ -68,10 +75,7 @@ pipeline {
                 git commit -m "Updating image tag to:${env.BUILD_ID} in helm-chart values file"
                 git push https://${GITHUB_USR}:${GITHUB_PSW}@github.com/VirtualL/workshop_ci_cd.git
                 """
-            }                
-            echo "Marging 'development' branch to 'master'"  
-            sh "git pull origin development"           
-            sh "git push https://${GITHUB_USR}:${GITHUB_PSW}@github.com/VirtualL/workshop_ci_cd.git development:master"              
+            }                            
 
         }
         failure {
