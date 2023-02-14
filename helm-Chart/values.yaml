@@ -9,7 +9,7 @@ image:
   repository: virtuall4u/workshop_ci_cd
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "22"
+  tag: "23"
 
 imagePullSecrets: []
 nameOverride: ""
