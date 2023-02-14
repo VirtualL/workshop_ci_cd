@@ -54,10 +54,13 @@ pipeline {
             docker push virtuall4u/workshop_ci_cd:latest                       
             """
 
+            echo "Merging 'master' branch into 'development'"  
+            sh "git pull origin master"                   
             echo "Merging 'development' branch into 'master'"  
-            sh "git checkout master"
+            sh "git checkout master"           
             sh "git merge development"           
-            sh "git push https://${GITHUB_USR}:${GITHUB_PSW}@github.com/VirtualL/workshop_ci_cd.git development:master"     
+            sh "git push https://${GITHUB_USR}:${GITHUB_PSW}@github.com/VirtualL/workshop_ci_cd.git development:master"
+
 
             //updating helm value file in master
             sh "git checkout master"
@@ -75,8 +78,7 @@ pipeline {
                 git commit -m "Updating image tag to:${env.BUILD_ID} in helm-chart values file"
                 git push https://${GITHUB_USR}:${GITHUB_PSW}@github.com/VirtualL/workshop_ci_cd.git
                 """
-            }                            
-
+            }
         }
         failure {
             echo "This pipeline BUILD_ID: ${env.BUILD_ID} on ${env.JENKINS_URL} failed!"
