@@ -1,6 +1,6 @@
 # Eliran Turgeman
 import logging
-#Module boto3 in use to create, configure, and manage AWS services via python
+# Module boto3 in use to create, configure, and manage AWS services via python
 import boto3
 from pythonjsonlogger import jsonlogger
 
