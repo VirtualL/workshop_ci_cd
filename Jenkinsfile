@@ -70,7 +70,7 @@ pipeline {
                 """
             }                
             echo "Marging 'development' branch to 'master'"  
-            sh "git pull"           
+            sh "git pull origin development"           
             sh "git push https://${GITHUB_USR}:${GITHUB_PSW}@github.com/VirtualL/workshop_ci_cd.git development:master"              
 
         }
