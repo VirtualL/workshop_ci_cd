@@ -1,0 +1,291 @@
+apiVersion: v1
+items:
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    creationTimestamp: "2023-02-13T21:29:46Z"
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    generation: 425
+    name: boto3-ip-finder
+    namespace: argocd
+    resourceVersion: "6430371"
+    uid: 4b2ac2a5-a43d-41f7-baf3-cc94ffb38f76
+  spec:
+    destination:
+      namespace: argocd
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      path: helm-Chart
+      repoURL: https://github.com/VirtualL/workshop_ci_cd
+      targetRevision: HEAD
+    syncPolicy:
+      automated: {}
+  status:
+    health:
+      status: Healthy
+    history:
+    - deployStartedAt: "2023-02-13T21:46:48Z"
+      deployedAt: "2023-02-13T21:46:49Z"
+      id: 2
+      revision: 04688a7eb60feeb0c90c67d01d600e5d502374bc
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    - deployStartedAt: "2023-02-13T21:47:08Z"
+      deployedAt: "2023-02-13T21:47:09Z"
+      id: 3
+      revision: 04688a7eb60feeb0c90c67d01d600e5d502374bc
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    - deployStartedAt: "2023-02-13T21:47:17Z"
+      deployedAt: "2023-02-13T21:47:17Z"
+      id: 4
+      revision: 04688a7eb60feeb0c90c67d01d600e5d502374bc
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    - deployStartedAt: "2023-02-13T21:47:27Z"
+      deployedAt: "2023-02-13T21:47:27Z"
+      id: 5
+      revision: 04688a7eb60feeb0c90c67d01d600e5d502374bc
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    - deployStartedAt: "2023-02-13T21:56:22Z"
+      deployedAt: "2023-02-13T21:56:22Z"
+      id: 6
+      revision: 0ac7b993563ff9775d056357c2c6839c84b3d185
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    - deployStartedAt: "2023-02-14T11:41:28Z"
+      deployedAt: "2023-02-14T11:41:29Z"
+      id: 7
+      revision: 1e4eb40caf47d18036e6f4097868d7201af26f55
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    - deployStartedAt: "2023-02-14T13:05:58Z"
+      deployedAt: "2023-02-14T13:05:58Z"
+      id: 8
+      revision: a5da57e4a2aba0ab91bc8f9ff0cee7735da61063
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    - deployStartedAt: "2023-02-14T13:41:17Z"
+      deployedAt: "2023-02-14T13:41:17Z"
+      id: 9
+      revision: 90a59a1e3fc6a6ae78d23849028dca7b57318c38
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    - deployStartedAt: "2023-02-14T13:57:43Z"
+      deployedAt: "2023-02-14T13:57:43Z"
+      id: 10
+      revision: 6967fcedd13b9cd01512d1ccc9dd8adafb44ff2b
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    - deployStartedAt: "2023-02-14T14:14:05Z"
+      deployedAt: "2023-02-14T14:14:05Z"
+      id: 11
+      revision: 91b7f366b4926a680fd729c818a45a6fe57fb816
+      source:
+        path: helm-Chart
+        repoURL: https://github.com/VirtualL/workshop_ci_cd
+        targetRevision: HEAD
+    operationState:
+      finishedAt: "2023-02-14T14:14:05Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          revision: 91b7f366b4926a680fd729c818a45a6fe57fb816
+      phase: Succeeded
+      startedAt: "2023-02-14T14:14:05Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/boto3-ip-finder-eliran unchanged
+          name: boto3-ip-finder-eliran
+          namespace: argocd
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/boto3-ip-finder-eliran unchanged
+          name: boto3-ip-finder-eliran
+          namespace: argocd
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: batch
+          hookPhase: Running
+          kind: CronJob
+          message: cronjob.batch/boto3-cronjob configured
+          name: boto3-cronjob
+          namespace: argocd
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 91b7f366b4926a680fd729c818a45a6fe57fb816
+        source:
+          path: helm-Chart
+          repoURL: https://github.com/VirtualL/workshop_ci_cd
+          targetRevision: HEAD
+    reconciledAt: "2023-02-14T14:14:06Z"
+    resources:
+    - health:
+        status: Healthy
+      kind: Service
+      name: boto3-ip-finder-eliran
+      namespace: argocd
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: boto3-ip-finder-eliran
+      namespace: argocd
+      status: Synced
+      version: v1
+    - group: batch
+      kind: CronJob
+      name: boto3-cronjob
+      namespace: argocd
+      status: Synced
+      version: v1
+    sourceType: Helm
+    summary:
+      images:
+      - virtuall4u/workshop_ci_cd:1
+      - virtuall4u/workshop_ci_cd:2
+      - virtuall4u/workshop_ci_cd:37
+      - virtuall4u/workshop_ci_cd:52
+    sync:
+      comparedTo:
+        destination:
+          namespace: argocd
+          server: https://kubernetes.default.svc
+        source:
+          path: helm-Chart
+          repoURL: https://github.com/VirtualL/workshop_ci_cd
+          targetRevision: HEAD
+      revision: 91b7f366b4926a680fd729c818a45a6fe57fb816
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    creationTimestamp: "2023-02-13T15:39:22Z"
+    generation: 461
+    name: guestbook
+    namespace: argocd
+    resourceVersion: "6430293"
+    uid: c9c7582b-3854-47e7-b024-a7e6699e1600
+  spec:
+    destination:
+      namespace: default
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      path: guestbook
+      repoURL: https://github.com/argoproj/argocd-example-apps.git
+  status:
+    health:
+      status: Healthy
+    history:
+    - deployStartedAt: "2023-02-13T15:39:50Z"
+      deployedAt: "2023-02-13T15:39:51Z"
+      id: 0
+      revision: 53e28ff20cc530b9ada2173fbbd64d48338583ba
+      source:
+        path: guestbook
+        repoURL: https://github.com/argoproj/argocd-example-apps.git
+    operationState:
+      finishedAt: "2023-02-13T15:39:51Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          username: admin
+        retry: {}
+        sync:
+          revision: 53e28ff20cc530b9ada2173fbbd64d48338583ba
+          syncStrategy:
+            hook: {}
+      phase: Succeeded
+      startedAt: "2023-02-13T15:39:50Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/guestbook-ui created
+          name: guestbook-ui
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          kind: Deployment
+          message: deployment.apps/guestbook-ui created
+          name: guestbook-ui
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 53e28ff20cc530b9ada2173fbbd64d48338583ba
+        source:
+          path: guestbook
+          repoURL: https://github.com/argoproj/argocd-example-apps.git
+    reconciledAt: "2023-02-14T14:13:39Z"
+    resources:
+    - health:
+        status: Healthy
+      kind: Service
+      name: guestbook-ui
+      namespace: default
+      status: Synced
+      version: v1
+    - group: apps
+      health:
+        status: Healthy
+      kind: Deployment
+      name: guestbook-ui
+      namespace: default
+      status: Synced
+      version: v1
+    sourceType: Directory
+    summary:
+      images:
+      - gcr.io/heptio-images/ks-guestbook-demo:0.2
+    sync:
+      comparedTo:
+        destination:
+          namespace: default
+          server: https://kubernetes.default.svc
+        source:
+          path: guestbook
+          repoURL: https://github.com/argoproj/argocd-example-apps.git
+      revision: 53e28ff20cc530b9ada2173fbbd64d48338583ba
+      status: Synced
+kind: List
+metadata:
+  resourceVersion: ""
