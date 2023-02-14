@@ -12,7 +12,7 @@ pipeline {
         stage('Init') {
             steps {
                 //cleanWs()
-                echo "Init stage"
+                echo "Init stage started"
                 echo "Running BUILD_ID: ${env.BUILD_ID} on ${env.JENKINS_URL}"
             } 
     }
