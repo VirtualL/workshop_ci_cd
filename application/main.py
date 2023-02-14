@@ -11,7 +11,7 @@ formatter = jsonlogger.JsonFormatter()
 logHandler.setFormatter(formatter)
 logger.addHandler(logHandler)
 
-"""this function will find running instances
+"""This function will find running instances
 with the tags in the filter section."""
 def main():
     print('Start')
