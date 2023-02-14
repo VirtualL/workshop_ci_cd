@@ -15,7 +15,7 @@ logger.addHandler(logHandler)
 with the tags in the filter section."""
 def main():
     print('Start')
-    # Initialize the boto3 EC2 client
+    #Initialize the boto3 EC2 client
     ec2 = boto3.client('ec2')
     # Define the filters to search for instances
     filters = [
