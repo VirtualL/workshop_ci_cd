@@ -35,7 +35,7 @@ def main():
     else:
         print('No IPs was found with this filters: {}:', filters)
 
-    print('End')
+    print('End!')
 
 
 if __name__ == "__main__":
